@@ -13,6 +13,9 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 app.get('/', (req, res) => res.json({ success: true, message: 'API is running' }));
+app.get('/swagger.json', (_req, res) => {
+  res.type('application/json').send(swaggerSpec);
+});
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/announcements', announcementRoutes);
 app.use('/api/quizzes', quizRoutes);
