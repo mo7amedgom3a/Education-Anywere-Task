@@ -21,7 +21,7 @@ services:
     container_name: anyware_mongo
     restart: always
     ports:
-      - "27017:27017"
+      - "27018:27017"
     environment:
       MONGO_INITDB_DATABASE: anyware_db
     volumes:
