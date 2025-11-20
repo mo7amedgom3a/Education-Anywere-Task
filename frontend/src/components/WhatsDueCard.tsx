@@ -30,10 +30,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useTranslation } from "react-i18next";
 
 const isValidDate = (date?: Date | null) => !!date && !Number.isNaN(date.getTime());
 
-const formatLongDate = (date?: Date | null, fallback = "Date to be announced") =>
+const formatLongDate = (date: Date | null | undefined, fallback: string) =>
   isValidDate(date) ? format(date!, "EEEE, MMMM d 'at' hh:mm a") : fallback;
 
 const quizSchema = z.object({
@@ -46,6 +47,7 @@ const quizSchema = z.object({
 type QuizFormValues = z.infer<typeof quizSchema>;
 
 export const WhatsDueCard = () => {
+  const { t } = useTranslation("dashboard");
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [activeQuiz, setActiveQuiz] = useState<QuizDTO | null>(null);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -71,15 +73,15 @@ export const WhatsDueCard = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['quizzes'] });
       toast({
-        title: "Success",
-        description: "Quiz/Assignment deleted successfully",
+        title: t("whatsDue.title"),
+        description: t("whatsDue.feedback.deleteSuccess"),
       });
       setDeleteId(null);
     },
     onError: () => {
       toast({
-        title: "Error",
-        description: "Failed to delete quiz/assignment",
+        title: t("whatsDue.title"),
+        description: t("whatsDue.feedback.deleteError"),
         variant: "destructive",
       });
     },
@@ -96,14 +98,14 @@ export const WhatsDueCard = () => {
         if (!old) return [data];
         return [data, ...old];
       });
-      toast({ title: "Success", description: "Quiz created successfully" });
+      toast({ title: t("whatsDue.title"), description: t("whatsDue.feedback.createSuccess") });
       createForm.reset();
       setIsCreateOpen(false);
     },
     onError: (error: Error) => {
       toast({
-        title: "Error",
-        description: error.message || "Failed to create quiz",
+        title: t("whatsDue.title"),
+        description: error.message || t("whatsDue.feedback.createError"),
         variant: "destructive",
       });
     },
@@ -113,7 +115,8 @@ export const WhatsDueCard = () => {
     const dueDateTime = new Date(values.dueDate);
     if (Number.isNaN(dueDateTime.getTime())) {
       toast({
-        title: "Please provide a valid due date.",
+        title: t("whatsDue.title"),
+        description: t("whatsDue.feedback.invalidDate"),
         variant: "destructive",
       });
       return;
@@ -127,8 +130,11 @@ export const WhatsDueCard = () => {
   };
 
   const getButtonText = useCallback(
-    (quiz: QuizDTO) => (quiz.title.toLowerCase().includes("quiz") ? "Start Quiz" : "Solve Assignment"),
-    [],
+    (quiz: QuizDTO) =>
+      quiz.title.toLowerCase().includes("quiz")
+        ? t("whatsDue.buttons.startQuiz")
+        : t("whatsDue.buttons.solveAssignment"),
+    [t],
   );
 
   const getItemType = (quiz: QuizDTO): "quiz" | "assignment" =>
@@ -137,7 +143,7 @@ export const WhatsDueCard = () => {
   const getStatusLabel = useCallback(
     (dueDate?: Date | null) => {
       if (!isValidDate(dueDate)) {
-        return { label: "TBD", color: "text-text-secondary" };
+        return { label: t("whatsDue.status.tbd"), color: "text-text-secondary" };
       }
 
       const now = new Date();
@@ -146,16 +152,19 @@ export const WhatsDueCard = () => {
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 
       if (diff < 0) {
-        return { label: "Overdue", color: "text-red-500" };
+        return { label: t("whatsDue.status.overdue"), color: "text-red-500" };
       } else if (hours < 24) {
-        return { label: "Today", color: "text-orange-500" };
+        return { label: t("whatsDue.status.today"), color: "text-orange-500" };
       } else if (days === 1) {
-        return { label: "Tomorrow", color: "text-yellow-500" };
+        return { label: t("whatsDue.status.tomorrow"), color: "text-yellow-500" };
       } else {
-        return { label: `${days} days`, color: "text-text-secondary" };
+        return {
+          label: t("whatsDue.status.days" + (days !== 1 ? "_plural" : ""), { count: days }),
+          color: "text-text-secondary",
+        };
       }
     },
-    [],
+    [t],
   );
 
   const sortedQuizzes = useMemo(() => {
@@ -170,10 +179,12 @@ export const WhatsDueCard = () => {
     return (
       <Card className="shadow-sm">
         <CardHeader>
-          <CardTitle className="text-lg font-semibold text-text-primary">What's due</CardTitle>
+          <CardTitle className="text-lg font-semibold text-text-primary">
+            {t("whatsDue.title")}
+          </CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-text-secondary">Loading...</p>
+          <p className="text-text-secondary">{t("whatsDue.loading")}</p>
         </CardContent>
       </Card>
     );
@@ -183,9 +194,13 @@ export const WhatsDueCard = () => {
     <>
       <Card className="shadow-sm">
         <CardHeader className="flex flex-row items-center justify-between pb-3">
-          <CardTitle className="text-lg font-semibold text-text-primary">What's due</CardTitle>
+          <CardTitle className="text-lg font-semibold text-text-primary">
+            {t("whatsDue.title")}
+          </CardTitle>
           <div className="flex items-center gap-2">
-            <button className="text-sm text-turquoise hover:underline font-medium">All</button>
+            <button className="text-sm text-turquoise hover:underline font-medium">
+              {t("whatsDue.allFilter")}
+            </button>
             <Button
               size="icon"
               variant="outline"
@@ -230,12 +245,12 @@ export const WhatsDueCard = () => {
                 <div className="space-y-2">
                   <div className="text-sm text-text-secondary">
                     <p>
-                      <span className="font-medium">Date:</span>{" "}
+                      <span className="font-medium">{t("whatsDue.labels.date")}:</span>{" "}
                       <span className={status.color}>{status.label}</span>
                     </p>
                     <p>
-                      <span className="font-medium">Time:</span>{" "}
-                      {isValidDate(quiz.dueDate) ? format(quiz.dueDate, "hh:mm a") : "TBD"}
+                      <span className="font-medium">{t("whatsDue.labels.time")}:</span>{" "}
+                      {isValidDate(quiz.dueDate) ? format(quiz.dueDate, "hh:mm a") : t("whatsDue.status.tbd")}
                     </p>
                   </div>
                   <Button 
@@ -264,8 +279,8 @@ export const WhatsDueCard = () => {
       >
         <DialogContent className="max-w-lg">
           <DialogHeader>
-            <DialogTitle>Create Quiz / Assignment</DialogTitle>
-            <DialogDescription>Plan upcoming work and sync it with the backend.</DialogDescription>
+            <DialogTitle>{t("whatsDue.createDialog.title")}</DialogTitle>
+            <DialogDescription>{t("whatsDue.createDialog.description")}</DialogDescription>
           </DialogHeader>
           <Form {...createForm}>
             <form onSubmit={createForm.handleSubmit(handleCreateSubmit)} className="space-y-4">
@@ -274,9 +289,9 @@ export const WhatsDueCard = () => {
                 name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Title</FormLabel>
+                    <FormLabel>{t("whatsDue.fields.title.label")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Unit 3 Quiz" {...field} />
+                      <Input placeholder={t("whatsDue.fields.title.placeholder")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -287,9 +302,9 @@ export const WhatsDueCard = () => {
                 name="course"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Course</FormLabel>
+                    <FormLabel>{t("whatsDue.fields.course.label")}</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Physics 201" {...field} />
+                      <Input placeholder={t("whatsDue.fields.course.placeholder")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -300,9 +315,9 @@ export const WhatsDueCard = () => {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
+                    <FormLabel>{t("whatsDue.fields.description.label")}</FormLabel>
                     <FormControl>
-                      <Textarea rows={4} placeholder="Optional details..." {...field} />
+                      <Textarea rows={4} placeholder={t("whatsDue.fields.description.placeholder")} {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -313,7 +328,7 @@ export const WhatsDueCard = () => {
                 name="dueDate"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Due date</FormLabel>
+                    <FormLabel>{t("whatsDue.fields.dueDate.label")}</FormLabel>
                     <FormControl>
                       <Input type="date" {...field} />
                     </FormControl>
@@ -323,10 +338,10 @@ export const WhatsDueCard = () => {
               />
               <div className="flex justify-end gap-2">
                 <Button type="button" variant="ghost" onClick={() => setIsCreateOpen(false)}>
-                  Cancel
+                  {t("common.cancel")}
                 </Button>
                 <Button type="submit" disabled={createMutation.isPending}>
-                  {createMutation.isPending ? "Creating..." : "Create"}
+                  {createMutation.isPending ? t("common.creating") : t("common.create")}
                 </Button>
               </div>
             </form>
@@ -341,13 +356,15 @@ export const WhatsDueCard = () => {
               <DialogHeader>
                 <DialogTitle>{activeQuiz.title}</DialogTitle>
                 <DialogDescription>
-                  {activeQuiz.course} • {formatLongDate(activeQuiz.dueDate)}
+                  {activeQuiz.course} • {formatLongDate(activeQuiz.dueDate, t("whatsDue.status.tbd"))}
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 pt-2">
                 {activeQuiz.description && (
                   <div>
-                    <h4 className="text-sm font-semibold text-text-light mb-1">Description</h4>
+                    <h4 className="text-sm font-semibold text-text-light mb-1">
+                      {t("whatsDue.viewDialog.description")}
+                    </h4>
                     <p className="text-text-secondary leading-relaxed">{activeQuiz.description}</p>
                   </div>
                 )}
@@ -355,25 +372,33 @@ export const WhatsDueCard = () => {
                   <div className="flex items-center gap-2 text-text-secondary">
                     <Calendar className="h-4 w-4 text-turquoise" />
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-text-light">Due Date</p>
+                      <p className="text-xs uppercase tracking-wide text-text-light">
+                        {t("whatsDue.viewDialog.dueDate")}
+                      </p>
                       <p className="font-medium text-text-primary">
-                        {isValidDate(activeQuiz.dueDate) ? format(activeQuiz.dueDate, 'MMM d, yyyy') : 'TBD'}
+                        {isValidDate(activeQuiz.dueDate)
+                          ? format(activeQuiz.dueDate, 'MMM d, yyyy')
+                          : t("whatsDue.status.tbd")}
                       </p>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-text-secondary">
                     <Clock4 className="h-4 w-4 text-turquoise" />
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-text-light">Time</p>
+                      <p className="text-xs uppercase tracking-wide text-text-light">
+                        {t("whatsDue.viewDialog.time")}
+                      </p>
                       <p className="font-medium text-text-primary">
-                        {isValidDate(activeQuiz.dueDate) ? format(activeQuiz.dueDate, 'hh:mm a') : 'TBD'}
+                        {isValidDate(activeQuiz.dueDate)
+                          ? format(activeQuiz.dueDate, 'hh:mm a')
+                          : t("whatsDue.status.tbd")}
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="flex justify-end gap-2 pt-2">
                   <Button variant="ghost" onClick={() => setActiveQuiz(null)}>
-                    Close
+                    {t("whatsDue.buttons.close")}
                   </Button>
                   <Button className="bg-turquoise text-white hover:bg-turquoise/90">
                     {getButtonText(activeQuiz)}
@@ -388,18 +413,18 @@ export const WhatsDueCard = () => {
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Quiz/Assignment</AlertDialogTitle>
+            <AlertDialogTitle>{t("whatsDue.deleteDialog.title")}</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this item? This action cannot be undone.
+              {t("whatsDue.deleteDialog.description")}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
             <AlertDialogAction
               onClick={() => deleteId && handleDelete(deleteId)}
               className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
             >
-              Delete
+              {t("whatsDue.deleteDialog.confirm")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

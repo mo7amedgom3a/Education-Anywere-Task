@@ -14,14 +14,17 @@ async function request<TResponse, Body = unknown>(
   options: RequestOptions<Body> = {},
 ): Promise<TResponse> {
   const { method = 'GET', body, headers, signal } = options;
+  const isFormData = typeof FormData !== 'undefined' && body instanceof FormData;
 
   const response = await fetch(`${API_BASE_URL}${path}`, {
     method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: body ? JSON.stringify(body) : undefined,
+    headers: isFormData
+      ? headers
+      : {
+          'Content-Type': 'application/json',
+          ...headers,
+        },
+    body: body ? (isFormData ? body : JSON.stringify(body)) : undefined,
     signal,
   });
 

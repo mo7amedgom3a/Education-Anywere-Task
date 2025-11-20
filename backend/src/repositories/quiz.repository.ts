@@ -1,7 +1,8 @@
+import { SortOrder } from 'mongoose';
 import { QuizModel, IQuiz } from '../models/quiz.model';
 
 export class QuizRepository {
-  async findAll(sort = { dueDate: 1 }) {
+  async findAll(sort: Record<string, SortOrder> = { dueDate: 1 }) {
     return QuizModel.find().sort(sort).lean();
   }
 

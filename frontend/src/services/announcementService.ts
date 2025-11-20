@@ -14,11 +14,11 @@ export const announcementService = {
     }
   },
 
-  async create(data: AnnouncementInputDTO): Promise<AnnouncementDTO> {
+  async create(data: AnnouncementInputDTO | FormData): Promise<AnnouncementDTO> {
     return announcementApi.create(data);
   },
 
-  async update(id: string, data: AnnouncementUpdateDTO): Promise<AnnouncementDTO | null> {
+  async update(id: string, data: AnnouncementUpdateDTO | FormData): Promise<AnnouncementDTO | null> {
     try {
       return await announcementApi.update(id, data);
     } catch {

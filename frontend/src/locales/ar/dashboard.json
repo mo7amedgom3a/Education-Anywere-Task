@@ -1,0 +1,171 @@
+{
+  "layout": {
+    "brand": "كوليغو",
+    "nav": {
+      "dashboard": "الرئيسية",
+      "schedule": "الجدول",
+      "courses": "المقررات",
+      "gradebook": "الدرجات",
+      "performance": "الأداء",
+      "announcement": "الإعلانات"
+    }
+  },
+  "topBar": {
+    "welcome": "مرحباً {{name}}،",
+    "searchPlaceholder": "بحث",
+    "logout": "تسجيل الخروج",
+    "languageLabel": "اللغة",
+    "languageShort": {
+      "en": "إنج",
+      "ar": "عر"
+    }
+  },
+  "examsBanner": {
+    "titleStrong": "موعد",
+    "titleLight": "الاختبارات",
+    "body": "لقد وصلنا، هل أنت مستعد؟ لا تقلق، حضّرنا لك بعض النصائح لتكون جاهزاً للاختبارات.",
+    "quote": "\"لا يحدث شيء حتى يتحرك شيء\" - ألبرت أينشتاين",
+    "button": "عرض نصائح الاختبارات"
+  },
+  "announcements": {
+    "title": "الإعلانات",
+    "allFilter": "الكل",
+    "loading": "جارٍ التحميل...",
+    "actions": {
+      "create": "إنشاء إعلان",
+      "edit": "تعديل الإعلان",
+      "delete": "حذف الإعلان"
+    },
+    "timeAgo": {
+      "hours": "منذ ساعة",
+      "hours_plural": "منذ {{count}} ساعات",
+      "yesterday": "أمس",
+      "days": "منذ يوم",
+      "days_plural": "منذ {{count}} أيام"
+    },
+    "emptyCategory": "عام",
+    "createDialog": {
+      "title": "إنشاء إعلان",
+      "description": "شارك الأخبار أو التذكيرات أو التحديثات المهمة مع الجميع."
+    },
+    "fields": {
+      "title": {
+        "label": "العنوان",
+        "placeholder": "عنوان الإعلان"
+      },
+      "authorName": {
+        "label": "اسم الكاتب",
+        "placeholder": "مثال: إدارة المدرسة"
+      },
+      "category": {
+        "label": "التصنيف",
+        "placeholder": "مثال: عام، رياضيات 101"
+      },
+      "authorAvatar": {
+        "label": "صورة الكاتب",
+        "helper": "اختياري — ارفع صورة مربعة (PNG/JPG) أقل من 2 ميجابايت.",
+        "clear": "إزالة الملف",
+        "current": "الصورة الحالية"
+      },
+      "content": {
+        "label": "الرسالة",
+        "placeholder": "اكتب إعلانك..."
+      }
+    },
+    "feedback": {
+      "createSuccess": "تم إنشاء الإعلان بنجاح",
+      "updateSuccess": "تم تحديث الإعلان بنجاح",
+      "deleteSuccess": "تم حذف الإعلان بنجاح",
+      "createError": "فشل إنشاء الإعلان",
+      "updateError": "فشل تحديث الإعلان",
+      "deleteError": "فشل حذف الإعلان"
+    },
+    "viewDialog": {
+      "title": "العنوان",
+      "category": "التصنيف",
+      "message": "الرسالة",
+      "close": "إغلاق",
+      "edit": "تعديل الإعلان"
+    },
+    "editDialog": {
+      "save": "حفظ التغييرات"
+    },
+    "deleteDialog": {
+      "title": "حذف الإعلان",
+      "description": "هل أنت متأكد من حذف هذا الإعلان؟ لا يمكن التراجع عن هذا الإجراء.",
+      "confirm": "حذف"
+    }
+  },
+  "whatsDue": {
+    "title": "المهام القادمة",
+    "allFilter": "الكل",
+    "loading": "جارٍ التحميل...",
+    "createDialog": {
+      "title": "إنشاء اختبار / واجب",
+      "description": "خطط للأعمال القادمة وتزامن مع الخادم."
+    },
+    "fields": {
+      "title": {
+        "label": "العنوان",
+        "placeholder": "مثال: اختبار الوحدة 3"
+      },
+      "course": {
+        "label": "المقرر",
+        "placeholder": "مثال: فيزياء 201"
+      },
+      "description": {
+        "label": "الوصف",
+        "placeholder": "تفاصيل اختيارية..."
+      },
+      "dueDate": {
+        "label": "تاريخ التسليم"
+      }
+    },
+    "status": {
+      "tbd": "لاحقاً",
+      "overdue": "متأخر",
+      "today": "اليوم",
+      "tomorrow": "غداً",
+      "days": "يوم",
+      "days_plural": "{{count}} أيام"
+    },
+    "labels": {
+      "date": "التاريخ",
+      "time": "الوقت"
+    },
+    "buttons": {
+      "startQuiz": "ابدأ الاختبار",
+      "solveAssignment": "حل الواجب",
+      "create": "إنشاء",
+      "creating": "جارٍ الإنشاء...",
+      "close": "إغلاق"
+    },
+    "feedback": {
+      "createSuccess": "تم إنشاء الاختبار بنجاح",
+      "createError": "فشل إنشاء الاختبار",
+      "deleteSuccess": "تم حذف العنصر بنجاح",
+      "deleteError": "فشل حذف العنصر",
+      "invalidDate": "يرجى إدخال تاريخ تسليم صالح."
+    },
+    "viewDialog": {
+      "description": "الوصف",
+      "dueDate": "تاريخ التسليم",
+      "time": "الوقت"
+    },
+    "deleteDialog": {
+      "title": "حذف الاختبار/الواجب",
+      "description": "هل أنت متأكد من حذف هذا العنصر؟ هذا الإجراء نهائي.",
+      "confirm": "حذف"
+    }
+  },
+  "common": {
+    "cancel": "إلغاء",
+    "create": "إنشاء",
+    "creating": "جارٍ الإنشاء...",
+    "save": "حفظ التغييرات",
+    "saving": "جارٍ الحفظ...",
+    "close": "إغلاق",
+    "loading": "جارٍ التحميل..."
+  }
+}
+

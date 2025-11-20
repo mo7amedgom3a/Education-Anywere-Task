@@ -14,6 +14,8 @@ const mapAnnouncement = (payload: AnnouncementApiModel): AnnouncementDTO => ({
   updatedAt: new Date(payload.updatedAt),
 });
 
+const ensurePayload = (payload: AnnouncementInputDTO | FormData) => payload;
+
 export const announcementApi = {
   async getAll() {
     const response = await httpClient.get<ApiSuccessResponse<AnnouncementApiModel[]>>('/api/announcements');
@@ -25,15 +27,18 @@ export const announcementApi = {
     return mapAnnouncement(response.data);
   },
 
-  async create(payload: AnnouncementInputDTO) {
-    const response = await httpClient.post<ApiSuccessResponse<AnnouncementApiModel>>('/api/announcements', payload);
+  async create(payload: AnnouncementInputDTO | FormData) {
+    const response = await httpClient.post<ApiSuccessResponse<AnnouncementApiModel>>(
+      '/api/announcements',
+      ensurePayload(payload),
+    );
     return mapAnnouncement(response.data);
   },
 
-  async update(id: string, payload: AnnouncementUpdateDTO) {
+  async update(id: string, payload: AnnouncementUpdateDTO | FormData) {
     const response = await httpClient.put<ApiSuccessResponse<AnnouncementApiModel>>(
       `/api/announcements/${id}`,
-      payload,
+      ensurePayload(payload),
     );
     return mapAnnouncement(response.data);
   },

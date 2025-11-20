@@ -1,7 +1,8 @@
+import { SortOrder } from 'mongoose';
 import { AnnouncementModel, IAnnouncement } from '../models/announcement.model';
 
 export class AnnouncementRepository {
-  async findAll(sort = { createdAt: -1 }) {
+  async findAll(sort: Record<string, SortOrder> = { createdAt: -1 }) {
     return AnnouncementModel.find().sort(sort).lean();
   }
 

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { AnnouncementController } from '../controllers/announcement.controller';
 import { body } from 'express-validator';
 import { validate } from '../middlewares/validate.middleware';
+import upload from '../middlewares/upload';
 
 const router = Router();
 const ctrl = new AnnouncementController();
@@ -59,6 +60,7 @@ router.get('/:id', (req, res, next) => ctrl.getById(req, res, next));
  */
 router.post(
   '/',
+  upload.single('authorAvatar'),
   [
     body('title').isString().trim().notEmpty(),
     body('content').isString().notEmpty(),
@@ -97,6 +99,7 @@ router.post(
  */
 router.put(
   '/:id',
+  upload.single('authorAvatar'),
   [
     body('title').optional().isString().trim().notEmpty(),
     body('content').optional().isString().notEmpty(),

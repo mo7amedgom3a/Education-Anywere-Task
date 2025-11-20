@@ -5,10 +5,18 @@ import {
   AnnouncementMapper,
   AnnouncementUpdateDTO,
 } from '../dtos/announcement.dto';
+import { AnnouncementModel } from '../models/announcement.model';
 
 const repo = new AnnouncementRepository();
 
 export class AnnouncementService {
+  async createAnnouncement(data: any, imageUrl?: string) {
+    return AnnouncementModel.create({
+      ...data,
+      image: imageUrl
+    });
+  }
+  
   async getAll(): Promise<AnnouncementDTO[]> {
     const items = await repo.findAll();
     return AnnouncementMapper.toDTOList(items);

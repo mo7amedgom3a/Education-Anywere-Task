@@ -1,0 +1,171 @@
+{
+  "layout": {
+    "brand": "Coligo",
+    "nav": {
+      "dashboard": "Dashboard",
+      "schedule": "Schedule",
+      "courses": "Courses",
+      "gradebook": "Gradebook",
+      "performance": "Performance",
+      "announcement": "Announcement"
+    }
+  },
+  "topBar": {
+    "welcome": "Welcome {{name}},",
+    "searchPlaceholder": "Search",
+    "logout": "Log out",
+    "languageLabel": "Language",
+    "languageShort": {
+      "en": "EN",
+      "ar": "AR"
+    }
+  },
+  "examsBanner": {
+    "titleStrong": "EXAMS",
+    "titleLight": "TIME",
+    "body": "Here we are, Are you ready to fight? Don't worry, we prepared some tips to be ready for your exams.",
+    "quote": "\"Nothing happens until something moves\" - Albert Einstein",
+    "button": "View exams tips"
+  },
+  "announcements": {
+    "title": "Announcements",
+    "allFilter": "All",
+    "loading": "Loading...",
+    "actions": {
+      "create": "Create Announcement",
+      "edit": "Edit Announcement",
+      "delete": "Delete Announcement"
+    },
+    "timeAgo": {
+      "hours": "{{count}} hour ago",
+      "hours_plural": "{{count}} hours ago",
+      "yesterday": "Yesterday",
+      "days": "{{count}} day ago",
+      "days_plural": "{{count}} days ago"
+    },
+    "emptyCategory": "General",
+    "createDialog": {
+      "title": "Create Announcement",
+      "description": "Share news, reminders, or important updates with everyone."
+    },
+    "fields": {
+      "title": {
+        "label": "Title",
+        "placeholder": "Announcement title"
+      },
+      "authorName": {
+        "label": "Author Name",
+        "placeholder": "e.g. School Management"
+      },
+      "category": {
+        "label": "Category",
+        "placeholder": "e.g. General, Math 101"
+      },
+      "authorAvatar": {
+        "label": "Author Avatar",
+        "helper": "Optional — upload a square PNG/JPG under 2MB.",
+        "clear": "Remove file",
+        "current": "Current image"
+      },
+      "content": {
+        "label": "Message",
+        "placeholder": "Write your announcement..."
+      }
+    },
+    "feedback": {
+      "createSuccess": "Announcement created successfully",
+      "updateSuccess": "Announcement updated successfully",
+      "deleteSuccess": "Announcement deleted successfully",
+      "createError": "Failed to create announcement",
+      "updateError": "Failed to update announcement",
+      "deleteError": "Failed to delete announcement"
+    },
+    "viewDialog": {
+      "title": "Title",
+      "category": "Category",
+      "message": "Message",
+      "close": "Close",
+      "edit": "Edit Announcement"
+    },
+    "editDialog": {
+      "save": "Save changes"
+    },
+    "deleteDialog": {
+      "title": "Delete Announcement",
+      "description": "Are you sure you want to delete this announcement? This action cannot be undone.",
+      "confirm": "Delete"
+    }
+  },
+  "whatsDue": {
+    "title": "What's due",
+    "allFilter": "All",
+    "loading": "Loading...",
+    "createDialog": {
+      "title": "Create Quiz / Assignment",
+      "description": "Plan upcoming work and sync it with the backend."
+    },
+    "fields": {
+      "title": {
+        "label": "Title",
+        "placeholder": "e.g. Unit 3 Quiz"
+      },
+      "course": {
+        "label": "Course",
+        "placeholder": "e.g. Physics 201"
+      },
+      "description": {
+        "label": "Description",
+        "placeholder": "Optional details..."
+      },
+      "dueDate": {
+        "label": "Due date"
+      }
+    },
+    "status": {
+      "tbd": "TBD",
+      "overdue": "Overdue",
+      "today": "Today",
+      "tomorrow": "Tomorrow",
+      "days": "{{count}} day",
+      "days_plural": "{{count}} days"
+    },
+    "labels": {
+      "date": "Date",
+      "time": "Time"
+    },
+    "buttons": {
+      "startQuiz": "Start Quiz",
+      "solveAssignment": "Solve Assignment",
+      "create": "Create",
+      "creating": "Creating...",
+      "close": "Close"
+    },
+    "feedback": {
+      "createSuccess": "Quiz created successfully",
+      "createError": "Failed to create quiz",
+      "deleteSuccess": "Quiz/Assignment deleted successfully",
+      "deleteError": "Failed to delete quiz/assignment",
+      "invalidDate": "Please provide a valid due date."
+    },
+    "viewDialog": {
+      "description": "Description",
+      "dueDate": "Due Date",
+      "time": "Time"
+    },
+    "deleteDialog": {
+      "title": "Delete Quiz/Assignment",
+      "description": "Are you sure you want to delete this item? This action cannot be undone.",
+      "confirm": "Delete"
+    }
+  },
+  "common": {
+    "cancel": "Cancel",
+    "create": "Create",
+    "creating": "Creating...",
+    "save": "Save changes",
+    "saving": "Saving...",
+    "close": "Close",
+    "loading": "Loading..."
+  }
+}
+
